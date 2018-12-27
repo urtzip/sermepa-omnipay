@@ -79,9 +79,24 @@ class PurchaseRequest extends AbstractRequest
         return $this->getParameter('identifier');
     }
 
+    public function getDirectPayment()
+    {
+        return $this->getParameter('directPayment');
+    }
+
+    public function setDirectPayment($directPayment)
+    {
+        return $this->setParameter('directPayment', $directPayment);
+    }
+
     public function getTransactionType()
     {
-        return '0';
+        return $this->getParameter('transactionType');
+    }
+
+    public function setTransactionType($transactionType)
+    {
+        $this->setParameter('transactionType', $transactionType);
     }
 
     public function setSignatureMode($signatureMode)
@@ -133,6 +148,10 @@ class PurchaseRequest extends AbstractRequest
 
         if (!empty($this->getParameter('identifier'))) {
             $data['Ds_Merchant_Identifier'] = $this->getParameter('identifier');
+        }
+
+        if (!empty($this->getParameter('directPayment'))) {
+            $data['Ds_Merchant_DirectPayment'] = $this->getParameter('directPayment');
         }
 
         $merchantParameters = base64_encode(json_encode($data));
